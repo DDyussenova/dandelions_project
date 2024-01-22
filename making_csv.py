@@ -6,14 +6,16 @@ import csv
 with open('filtered_data.json') as file: 
     filtered_data = json.load(file)
 
-print(len(filtered_data))
+# print(len(filtered_data))
 
 output_height = []
 for person in filtered_data:
     if "ontology/height" in person:
+        if float(person["ontology/height"]) < 3:
+             person["ontology/height"] = float(person["ontology/height"]) * 100
         output_height.append(person)
 
-print(len(output_height))
+# print(len(output_height))
 
 list_height_money = []
 for player in output_height: 
@@ -21,7 +23,7 @@ for player in output_height:
      for key in player: 
           if "title" in key:
                inside_list.append(player[key]) 
-          elif "ontology/height" in key:
+          elif "ontology/height" in key:       
                inside_list.append(player[key])
           elif "ontology/careerPrizeMoney" in key:
                inside_list.append(player[key])
@@ -41,4 +43,4 @@ with open(csv_file_path, mode='w', newline='', encoding='utf-8') as file:
     for row in list_height_money:
         writer.writerow(row)
 
-print(f"CSV file '{csv_file_path}' created successfully.")
+# print(f"CSV file '{csv_file_path}' created successfully.")
