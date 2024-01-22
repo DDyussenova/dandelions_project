@@ -30,5 +30,16 @@ for player in output_height:
      
 print(list_height_money)               
 
-# with open('height_money.csv', 'w') as file:
-#     csv.writer(list_height_money)
+csv_file_path = "height_money.csv" 
+
+with open(csv_file_path, mode='w', newline='', encoding='utf-8') as file:
+    writer = csv.writer(file)
+    
+    # Write header
+    writer.writerow(["Title", "Height", "Career Prize Money"])
+    
+    # Write data
+    for row in list_height_money:
+        writer.writerow(row)
+
+print(f"CSV file '{csv_file_path}' created successfully.")
