@@ -9,7 +9,7 @@ alfabet = list(string.ascii_uppercase)
 
 files = []
 for l in alfabet:
-    files.append('../People/'+l+'_people.json')
+    files.append('People/'+l+'_people.json')
 
 #filters out all entries without careerPrizeMoney entry
 output = []
@@ -23,7 +23,7 @@ for file in files:
 
 print(len(output))
 
-with open('rough_filter.json', 'w') as file:
+with open('filtered_data.json', 'w') as file:
         json.dump(output, file, indent = 4)
 
 print("done")
