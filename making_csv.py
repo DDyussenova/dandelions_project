@@ -36,7 +36,7 @@ with open(csv_file_path, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
     
     # Write header
-    writer.writerow(["Title", "Height", "Career Prize Money"])
+    writer.writerow(["Title", "Height", "Money"])
     
     # Write data
     for row in list_height_money:
