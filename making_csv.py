@@ -9,10 +9,9 @@ with open('filtered_data.json') as file:
 print(len(filtered_data))
 
 output_height = []
-for file in filtered_data:
-    for entry in file:
-        if "ontology/height" in entry:
-            output_height.append(file)
+for person in filtered_data:
+    if "ontology/height" in person:
+        output_height.append(person)
 
 print(len(output_height))
 
