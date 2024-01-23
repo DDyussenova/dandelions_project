@@ -198,6 +198,18 @@ for entry in filtered_data:
             row.append(entry["ontology/weight"])
     else:
         row.append(None)
+    removable_syntax = [' Davis Cup team',' Fed Cup team']
+    if "ontology/country_label" in entry:
+        if isinstance(entry["ontology/country_label"], list):
+            entry["ontology/country_label"] = entry["ontology/country_label"][0]
+        for word in removable_syntax:
+            if word in entry["ontology/country_label"]:
+                entry["ontology/country_label"] = entry["ontology/country_label"].replace(word, "")
+        if entry["ontology/country_label"] == "West Germany":
+            entry["ontology/country_label"] = "Germany"
+        row.append(entry["ontology/country_label"])
+    else:
+        row.append(None)
     row.append(entry["ontology/careerPrizeMoney"])
     list_all.append(row)
 
@@ -210,7 +222,7 @@ csv_file_path = "data/huge_csv.csv"
 
 with open(csv_file_path, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
-    writer.writerow(['year','month','height','weight','prize_money','dominant_hand','backhand','forehand'])
+    writer.writerow(['year','month','height','weight','country','prize_money','dominant_hand','backhand','forehand'])
     for row in list_all:
         writer.writerow(row)
 
