@@ -206,11 +206,11 @@ for i in range(len(dominant_hand)):
     list_all[i].extend([dominant_hand[i],backhand[i],forehand[i]])
 
 #finally writing into csv
-csv_file_path = "huge_csv.csv" 
+csv_file_path = "data/huge_csv.csv" 
 
 with open(csv_file_path, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
-    writer.writerow(["year",'month',"height","weight","prize_money",'dominant_hand','backhand','forehand'])
+    writer.writerow(['year','month','height','weight','prize_money','dominant_hand','backhand','forehand'])
     for row in list_all:
         writer.writerow(row)
 
