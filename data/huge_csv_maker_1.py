@@ -1,8 +1,10 @@
+#use sl 'Documents\labcourse\final_project\dandelions_project' (for suheil)
+
 import json 
 import csv
 import string
 
-with open('filtered_data.json') as file: 
+with open('data/filtered_data.json') as file: 
     filtered_data = json.load(file)
 
 to_be_deleted = []

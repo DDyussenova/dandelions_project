@@ -1,7 +1,7 @@
 library(tidyverse)
 library(ggplot2)
 
-graph1 <- read_csv("huge_csv.csv") |>
+graph1 <- read_csv("data/huge_csv.csv") |>
   filter(height != 0)
 
 print(graph1)

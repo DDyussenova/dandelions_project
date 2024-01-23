@@ -1,4 +1,4 @@
-git#run this first: sl 'Documents\labcourse\final_project\dandelions_project'
+#run this first: sl 'Documents\labcourse\final_project\dandelions_project'
 
 import json 
 import string 

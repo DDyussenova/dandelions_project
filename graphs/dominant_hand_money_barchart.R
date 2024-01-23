@@ -2,7 +2,7 @@
 
 library(tidyverse)
 
-tennis_players_data <- read_csv("huge_csv.csv")
+tennis_players_data <- read_csv("data/huge_csv.csv")
 
 dominant_hand_filtered <- tennis_players_data |> 
   filter(!is.na(dominant_hand)) |> 
