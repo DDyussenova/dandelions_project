@@ -120,6 +120,7 @@ replacements = {
 'doublebothsides':'doubleforedoubleback',
 'occasionallysinglefore':'',
 'doubleforeandback': 'doubleforedoubleback',
+'singleanddoubleback': ''
 }
 replacement_key = replacements.keys()
 
@@ -133,6 +134,17 @@ def prep(phrase):
         if key in phrase:
             phrase = phrase.replace(key,replacements[key]) 
     return(phrase)
+
+unique = []
+for entry in filtered_data:
+    if "ontology/plays" in entry:
+        phrase = prep(entry["ontology/plays"])
+        if "ontology/plays" in entry and phrase not in unique:
+            unique.append(phrase)
+
+for x in unique:
+    print(x)
+
 
 #now lets build the last two layers
 
@@ -153,7 +165,7 @@ for entry in filtered_data:
                 backhand.append('single')
             else: 
                 backhand.append(None)
-            if "doublefor" in phrase:
+            if "doublefore" in phrase:
                 forehand.append('double')
             else:
                 forehand.append(None)
