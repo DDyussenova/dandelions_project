@@ -171,8 +171,13 @@ for entry in filtered_data:
     if "ontology/birthDate" in entry:
         if isinstance(entry["ontology/birthDate"],list):
             entry["ontology/birthDate"] = entry["ontology/birthDate"][0]
-        row.append(entry["ontology/birthDate"])
+        split_date = entry["ontology/birthDate"].split("-")
+        year = int(split_date[0])
+        month = int(split_date[1])
+        row.append(year)
+        row.append(month)    
     else: 
+        row.append(None)
         row.append(None)
     if "ontology/height" in entry:
         if float(entry["ontology/height"]) == 0:
@@ -203,7 +208,7 @@ csv_file_path = "huge_csv.csv"
 
 with open(csv_file_path, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
-    writer.writerow(["birth_date","height","weight","prize_money",'dominant_hand','backhand','forehand'])
+    writer.writerow(["year",'month',"height","weight","prize_money",'dominant_hand','backhand','forehand'])
     for row in list_all:
         writer.writerow(row)
 
