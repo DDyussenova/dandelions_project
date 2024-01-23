@@ -198,6 +198,7 @@ for entry in filtered_data:
             row.append(entry["ontology/weight"])
     else:
         row.append(None)
+    removable_syntax = [' Davis Cup team',' Fed Cup team']
     if "ontology/country_label" in entry:
         if isinstance(entry["ontology/country_label"], list):
             entry["ontology/country_label"] = entry["ontology/country_label"][0]
