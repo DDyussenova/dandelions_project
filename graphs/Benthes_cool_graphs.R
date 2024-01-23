@@ -49,9 +49,17 @@ ggplot(data = graph1) +
        x = "BMI")
 
 ggplot(data = graph1) +
-  aes(x = birth_year, y = prize_money) +
+  aes(x = year, y = prize_money) +
   theme_light() +
   scale_x_continuous(breaks = seq(1930, 2000, by = 10)) +
   stat_summary_bin(fun = "mean", geom = "col", binwidth = 5) +
   labs(y = "Average Prize Money",
        x = "Birth Year")
+
+ggplot(data = graph1) +
+  aes(x = month, y = prize_money) +
+  theme_light() +
+  scale_x_continuous(breaks = seq(1, 12, by = 1)) +
+  stat_summary_bin(fun = "mean", geom = "col", binwidth = 1) +
+  labs(y = "Average Prize Money",
+       x = "Birth Month")
