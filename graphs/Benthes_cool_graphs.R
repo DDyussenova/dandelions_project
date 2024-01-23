@@ -16,7 +16,7 @@ ggplot(data = graph1) +
        y = "Prize Money")
 
 ggplot(data = graph1) +
-  aes(x = weight, y = prize_money) +
+  aes(x = weight_kg, y = prize_money) +
   scale_y_log10() +
   theme_light() +
   geom_point(position = position_jitter(0.01)) +
