@@ -135,17 +135,6 @@ def prep(phrase):
             phrase = phrase.replace(key,replacements[key]) 
     return(phrase)
 
-unique = []
-for entry in filtered_data:
-    if "ontology/plays" in entry:
-        phrase = prep(entry["ontology/plays"])
-        if "ontology/plays" in entry and phrase not in unique:
-            unique.append(phrase)
-
-for x in unique:
-    print(x)
-
-
 #now lets build the last two layers
 
 backhand = []
