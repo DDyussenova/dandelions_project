@@ -81,3 +81,4 @@ ggplot(data = graph1) +
   stat_summary_bin(fun = "mean", geom = "col", binwidth = 1) +
   labs(y = "Average Prize Money (usd)",
        x = "Birth Month")
+
