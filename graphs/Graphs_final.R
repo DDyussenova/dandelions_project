@@ -161,3 +161,76 @@ ggplot(data = dominant_hand_filtered) +
   labs(x = 'Dominant hand',                                                    
        y = 'Average career prize money (in millions USD)') +
   scale_x_discrete(labels = c("ambidextrous" = "Ambidextrous", "left" = "Left", "right" = "Right"))
+
+#COUNTRIES
+gdp <- read_csv("gdp_with_category.csv") |>
+  select(country = "Country Name", category) |>
+  mutate(country = recode(country,
+                          "Czechia" = "Czech Republic",
+                          "Egypt, Arab Rep." = "Egypt",
+                          "Hong Kong SAR, China" = "Hong Kong",
+                          "Iran, Islamic Rep." = "Iran",
+                          "Russian Federation" = "Russia",
+                          "Cote d'Ivoire" = "Ivory Coast",
+                          "Kyrgyz Republic" = "Kyrgyzstan",
+                          "North Macedonia" = "Macedonia",
+                          "Slovak Republic" = "Slovakia",
+                          "Korea, Rep." = "South Korea",
+                          "Bahamas, The" = "The Bahamas",
+                          "Turkiye" = "Turkey",
+                          "Viet Nam" = "Vietnam"))
+
+countries_filtered <- read_csv("huge_csv.csv") |> 
+  filter(!is.na(dominant_hand)) |> 
+  group_by(dominant_hand) |>
+  summarise(average_money = mean(prize_money),
+            sd_money = sd(prize_money),
+            n = n()) |>
+  mutate(
+    se_money = sd_money / sqrt(n),
+    lower_money = average_money - se_money,
+    upper_money = average_money + se_money)
+
+data <- read_csv("huge_csv.csv") |>
+  select(country, prize_money) |>
+  na.omit() |>
+  mutate(country = recode(country,
+                          "Kingdom of Romania" = "Romania",
+                          "Great Britain" = "United Kingdom",
+                          "Chinese Taipei" = "Taiwan",
+                          "Republic of Ireland" = "Ireland",
+                          "Serbia and Montenegro" = "Serbia",
+                          "Czechoslovakia" = "Czech Republic",
+                          "Union of South Africa" = "South Africa"))
+
+all_data <-merge(data, gdp, by="country", all.x = T) |>
+  na.omit()
+
+countries_filtered <- all_data |> 
+  filter(!is.na(category)) |> 
+  group_by(category) |>
+  summarise(average_money = mean(prize_money),
+            sd_money = sd(prize_money),
+            n = n()) |>
+  mutate(
+    se_money = sd_money / sqrt(n),
+    lower_money = average_money - se_money,
+    upper_money = average_money + se_money)
+
+merged <- merge(data, gdp, by="country", all.x = T) |>
+  na.omit() |>
+  group_by(category) |>
+  summarise(mean_prize_money = mean(prize_money), n_players = length(country))
+
+ggplot(data = countries_filtered) +
+  aes(x = reorder(category, average_money), y = average_money) +
+  labs(
+    x = "Countries grouped by income",
+    y = "Average prize money (in millions USD)"
+  ) +
+  geom_col()+
+  geom_pointrange(aes(ymin = lower_money, ymax = upper_money))+
+  theme_light() +
+  scale_y_continuous(labels = scales::number_format(scale = 1e-6, accuracy = 0.1, suffix = ""))+
+  geom_text(aes(label = n),
+            y = 50000, color = "white")

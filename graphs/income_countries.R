@@ -1,5 +1,5 @@
 library(tidyverse)
-gdp <- read_csv("dandelions_project/data/gdp_with_category.csv") |>
+gdp <- read_csv("gdp_with_category.csv") |>
   select(country = "Country Name", category) |>
   mutate(country = recode(country,
                           "Czechia" = "Czech Republic",
@@ -16,7 +16,7 @@ gdp <- read_csv("dandelions_project/data/gdp_with_category.csv") |>
                           "Turkiye" = "Turkey",
                           "Viet Nam" = "Vietnam"))
 
-data <- read_csv("dandelions_project/data/huge_csv.csv") |>
+data <- read_csv("huge_csv.csv") |>
   select(country, prize_money) |>
   na.omit() |>
   mutate(country = recode(country,
