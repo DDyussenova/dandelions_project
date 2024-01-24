@@ -18,16 +18,21 @@ forehand_filtered <- tennis_players_data |>
 ggplot(data = forehand_filtered) +
   aes(x = forehand, y = average_money) +
   theme_light()+
+  scale_y_continuous(labels = scales::number_format(scale = 1e-3, accuracy = 1, suffix = ""))+
   geom_col()+
   geom_pointrange(aes(ymin = lower_money, ymax = upper_money))+
   annotate("text",                        
-           x = NA, y = 1900000, 
+           x = NA, y = 500000, 
            label = "n = 3362", 
-           family = 'sans')+
+           family = 'sans', 
+           colour = 'white')+
   annotate("text", 
-           x = 'double', y = 2100000, 
+           x = 'double', y = 500000, 
            label = "n = 55", 
-           family = 'sans') + 
-  labs(y = "Average Career Prize Money (USD)",
-       x = "Forehand")
+           family = 'sans', 
+           colour = 'white') + 
+  labs(y = "Average Career Prize Money \n(in Thousands of USD)",
+       x = "Forehand")+
+  scale_x_discrete(labels = c("double" = "Double"))
   
+                   

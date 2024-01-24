@@ -19,20 +19,24 @@ dominant_hand_filtered <- tennis_players_data |>
 ggplot(data = dominant_hand_filtered) +
   aes(x = dominant_hand, y = average_money) +
   theme_light()+
+  scale_y_continuous(labels = scales::number_format(scale = 1e-3, accuracy = 1, suffix = ""))+
   geom_col()+
   geom_pointrange(aes(ymin = lower_money, ymax = upper_money))+
   annotate("text",                        
-           x = 'right', y = 1800000, 
+           x = 'right', y = 200000, 
            label = "n = 2584", 
-           family = 'sans')+
+           family = 'sans', 
+           colour = 'white')+
   annotate("text", 
-           x = 'left', y = 2000000, 
+           x = 'left', y = 200000, 
            label = "n = 368", 
-           family = 'sans') +
+           family = 'sans', 
+           colour = 'white') +
   annotate("text", 
-           x = 'ambidextrous', y = 660000, 
+           x = 'ambidextrous', y = 200000, 
            label = "n = 5", 
-           family = 'sans') + 
+           family = 'sans', 
+           colour = 'white') + 
   labs(x = 'Dominant hand',                            
        y = 'Average Career Prize Money (USD)') 
   
