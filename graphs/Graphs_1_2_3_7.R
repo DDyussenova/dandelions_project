@@ -57,6 +57,7 @@ height_filtered <- graph1 |>
   filter(!is.na(height)) |> 
   mutate(height_bin = case_when(
     height >= 1.975 ~ "200>",
+    height < 1.625 ~ "<160",
     TRUE ~ as.character(round(height*20)*5)
   )) |>
   group_by(height_bin) |>
