@@ -26,14 +26,12 @@ data <- read_csv("dandelions_project/data/huge_csv.csv") |>
                           "Republic of Ireland" = "Ireland",
                           "Serbia and Montenegro" = "Serbia",
                           "Czechoslovakia" = "Czech Republic",
-                          "Union of South Africa" = "South Africa")) |>
-  group_by(country) |>
-  summarise(mean_prize_money = mean(prize_money),  n_players = length(country))
+                          "Union of South Africa" = "South Africa"))
 
 merged <- merge(data, gdp, by="country", all.x = T) |>
   na.omit() |>
   group_by(category) |>
-  summarise(mean_prize_money = mean(mean_prize_money), n_players = sum(n_players))
+  summarise(mean_prize_money = mean(prize_money), n_players = length(country))
 
 ggplot(data = merged) +
   aes(x = reorder(category, mean_prize_money), y = mean_prize_money) +
