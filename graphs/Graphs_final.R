@@ -1,6 +1,9 @@
 library(tidyverse)
 library(ggplot2)
 
+color_low = "lightskyblue2"
+color_high = "lightskyblue4"
+
 graph1 <- read_csv("huge_csv.csv") |>
   filter(height != 0) |>
   mutate(BMI = (weight/1000)/(height^2)) |>
@@ -11,7 +14,7 @@ BMI_filtered <- graph1 |>
   filter(!is.na(BMI)) |> 
   mutate(BMI_bin = case_when(
     BMI < 18.5 ~ "<18",
-    BMI >= 27.5 ~ "28>",
+    BMI >= 25.5 ~ "26>",
     TRUE ~ as.character(round(BMI))
   )) |>
   group_by(BMI_bin) |>
@@ -24,9 +27,11 @@ BMI_filtered <- graph1 |>
     upper_money = average_money + se_money)
 
 ggplot(data = BMI_filtered) +
-  aes(x = BMI_bin, y = average_money) +
+  aes(x = BMI_bin, y = average_money, fill =n) +
+  scale_fill_gradient(low=color_low, high= color_high) +
   theme_light() +
   scale_x_discrete() +
+  
   scale_y_continuous(labels = scales::number_format(scale = 1e-6, accuracy = 1, suffix = "")) + 
   stat_summary_bin(fun = "mean", geom = "col", binwidth = 1) +
   labs(y = "Average prize money (in millions USD)",
@@ -52,7 +57,8 @@ height_filtered <- graph1 |>
     upper_money = average_money + se_money)
 
 ggplot(data = height_filtered) +
-  aes(x = height_bin, y = average_money) +
+  aes(x = height_bin, y = average_money, fill =n) +
+  scale_fill_gradient(low=color_low, high= color_high) +
   theme_light() +
   scale_x_discrete() +
   scale_y_continuous(labels = scales::number_format(scale = 1e-6, accuracy = 1, suffix = "")) + 
@@ -74,7 +80,8 @@ forehand_filtered <- read_csv("huge_csv.csv") |>
     upper_money = average_money + se_money)
 
 ggplot(data = forehand_filtered) +
-  aes(x = forehand, y = average_money) +
+  aes(x = forehand, y = average_money, fill =n) +
+  scale_fill_gradient(low=color_low, high= color_high) +
   theme_light()+
   scale_y_continuous(labels = scales::number_format(scale = 1e-6, accuracy = 0.1, suffix = ""))+
   geom_col()+
@@ -106,7 +113,8 @@ backhand_filtered <- read_csv('huge_csv.csv') |>
     upper_money = average_money + se_money)
 
 ggplot(data = backhand_filtered) +
-  aes(x = backhand, y = average_money) +
+  aes(x = backhand, y = average_money, fill =n) +
+  scale_fill_gradient(low=color_low, high= color_high) +
   theme_light()+
   geom_col()+
   geom_pointrange(aes(ymin = lower_money, ymax = upper_money))+
@@ -138,7 +146,8 @@ dominant_hand_filtered <- read_csv("huge_csv.csv") |>
     upper_money = average_money + se_money)
 
 ggplot(data = dominant_hand_filtered) +
-  aes(x = dominant_hand, y = average_money) +
+  aes(x = dominant_hand, y = average_money, fill =n) +
+  scale_fill_gradient(low=color_low, high= color_high) +
   theme_light()+
   scale_y_continuous(labels = scales::number_format(scale = 1e-6, accuracy = 0.1, suffix = ""))+
   geom_col()+
@@ -223,7 +232,8 @@ merged <- merge(data, gdp, by="country", all.x = T) |>
   summarise(mean_prize_money = mean(prize_money), n_players = length(country))
 
 ggplot(data = countries_filtered) +
-  aes(x = reorder(category, average_money), y = average_money) +
+  aes(x = reorder(category, average_money), y = average_money, fill =n) +
+  scale_fill_gradient(low=color_low, high= color_high) +
   labs(
     x = "Countries grouped by income",
     y = "Average prize money (in millions USD)"
